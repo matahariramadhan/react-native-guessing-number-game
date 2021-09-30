@@ -11,9 +11,10 @@ import {
 
 import Card from "../components/Card";
 import Input from "../components/Input";
+import NumberContainer from "../components/NumberContainer";
 import COLORS from "../constants/colors";
 
-const StartGameScreen = () => {
+const StartGameScreen = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
@@ -48,13 +49,12 @@ const StartGameScreen = () => {
     confirmedOutput = (
       <Card style={styles.confirmedCard}>
         <Text style={styles.confirmedTitle}>You selected</Text>
-        <View style={styles.confirmedNumber}>
-          <Text style={{ fontSize: 50, color: COLORS.secondary, margin: 10 }}>
-            {selectedNumber}
-          </Text>
-        </View>
+        <NumberContainer selectedNumber={selectedNumber} />
         <View style={styles.confirmedButton}>
-          <Button title="START GAME" onPress={() => {}} />
+          <Button
+            title="START GAME"
+            onPress={() => onStartGame(selectedNumber)}
+          />
         </View>
       </Card>
     );
@@ -134,13 +134,6 @@ const styles = StyleSheet.create({
   confirmedTitle: {
     fontSize: 20,
     marginVertical: 10,
-  },
-  confirmedNumber: {
-    alignItems: "center",
-    marginVertical: 10,
-    borderWidth: 3,
-    borderColor: COLORS.secondary,
-    borderRadius: 20,
   },
   confirmedButton: {
     marginVertical: 5,
